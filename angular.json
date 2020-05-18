@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "twillio-test"
+    }
+  },
+  "defaultProject": "twillio-test",
+  "cli": {
+    "analytics": false
+  }
 }
