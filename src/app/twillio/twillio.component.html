@@ -1,5 +1,11 @@
 <p>twillio works!</p>
+<!-- <div onclick="createRoom()">CreateRoom</div> -->
+<button (click)="joinRoom()">JoinRoom</button>
+<button *ngIf="room && room.state !== 'disconnected'" (click)="disconnect()">Disconnect</button>
 <pre *ngIf="error"><code>{{error.stack}}</code></pre>
 <p *ngIf="!error && !room">Connecting to a new Room&hellip;</p>
 <p *ngIf="room && room.state === 'disconnected'">Disconnected from Room {{room.sid}}.</p>
 <p *ngIf="room && room.state !== 'disconnected'">Connected to Room {{room.sid}}.</p>
+<div *ngIf="participant.length > 0">
+    <p *ngFor="let p of participant"> {{p.identity}} {{p.state == 'connected' ? 'joined' : 'Left'}} the room</p>
+</div>
