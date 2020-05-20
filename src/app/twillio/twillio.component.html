@@ -9,3 +9,6 @@
 <div *ngIf="participant.length > 0">
     <p *ngFor="let p of participant"> {{p.identity}} {{p.state == 'connected' ? 'joined' : 'Left'}} the room</p>
 </div>
+<div id="local-media"></div>
+<div id="remote-media-div"></div>
+
