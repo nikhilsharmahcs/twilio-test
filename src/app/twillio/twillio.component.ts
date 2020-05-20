@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { connect, createLocalTracks, Room, Participant, LocalAudioTrack, createLocalVideoTrack, createLocalAudioTrack } from 'twilio-video'
+const AccessToken = require('twilio').jwt.AccessToken;
+const VideoGrant = AccessToken.VideoGrant;
+// require('dotenv').config();
+
+const MAX_ALLOWED_SESSION_DURATION = 14400;
+const twilioAccountSid = 'AC9e8e0d9a89ffc9d1550461d690f1a1f2';
+const twilioApiKeySID = 'SKcd06e29637ba5ee4993ed98afa453adf';
+const twilioApiKeySecret = 'uoeHj2e2BHhUxYpTTe78kkA2GwhVWAut';
 @Component({
   selector: 'app-twillio',
   templateUrl: './twillio.component.html',
@@ -13,8 +21,18 @@ error: Error;
 fetchToken(name: string, room: string, passcode: string) {
     const headers = new window.Headers();
     const params = new window.URLSearchParams({ identity:name, roomName:room });
-    return fetch(`http://localhost:8081/token?${params}`, { headers })
-  }
+    // return fetch(`http://localhost:8081/token?${params}`, { headers })
+    // const { identity, roomName } = req.query;
+    const token = new AccessToken(twilioAccountSid, twilioApiKeySID, twilioApiKeySecret, {
+        ttl: MAX_ALLOWED_SESSION_DURATION,
+    });
+    token.identity = name;
+    console.log(token)
+    const videoGrant = new VideoGrant({ room: room });
+    token.addGrant(videoGrant);
+    console.log(`issued token for ${name} in room ${room}`);
+    return token.toJwt();
+}
   constructor() { }
 
   ngOnInit(): void {
