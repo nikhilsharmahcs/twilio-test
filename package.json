@@ -21,6 +21,7 @@
     "@angular/router": "~9.1.7",
     "@types/twilio-video": "^2.0.12",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "request": "^2.88.0",
     "rxjs": "~6.5.4",
